@@ -1,0 +1,32 @@
+<br>
+<div style="height:500px;width:600px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+<div  *ngFor="let message of allMessages$ | async">
+  <div>
+    {{message.message}}
+    <img [src]="message.url" *ngIf="message.url" style="width: 200px; height: 200px;">
+    <div style="font-size: xx-small">{{message.date.seconds *1000 | date: 'dd/MM/yyyy HH:mm'}}</div>
+    <br>
+  </div>
+  </div>
+</div>
+
+<label>
+  <input type="text" [formControl]="messageForm">
+</label>
+<button (click)="sendMessage()">SEND</button>
+
+<input type="file" (change)="uploadFile($event)" accept="image/*"/>
+<button (click)="saveImage()">UPLOAD PIC</button>
+<div>
+  <image-cropper
+    style="width: 512px; height: 512px;float:left;"
+    [imageChangedEvent]="imageChangedEvent"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    [aspectRatio]="1/1"
+    [onlyScaleDown]="true"
+    [cropperMinWidth]="100"
+    [resizeToWidth]="200"
+  ></image-cropper>
+</div>
+
